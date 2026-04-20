@@ -8,30 +8,30 @@ const Projects = () => {
 
   const projects = [
     {
-      title: 'E-Learning Platform',
-      desc: 'Sebuah platform pembelajaran online interaktif untuk memudahkan siswa mengakses materi.',
-      fullDesc: 'Aplikasi ini dibangun untuk mengatasi kendala pembelajaran jarak jauh di SMK Negeri 1. Fiturnya mencakup sistem kuis real-time, manajemen tugas terintegrasi, serta video player custom. Dibangun sepenuhnya menggunakan React dan backend serverless Firebase.',
+      title: 'E-Learning Excellence',
+      desc: 'Platform edukasi modern dengan fitur kuis interaktif dan manajemen tugas.',
+      fullDesc: 'Dikembangkan untuk memfasilitasi pembelajaran digital yang efektif. Fitur utama meliputi dashboard siswa, pengumpulan tugas yang otomatis, dan integrasi video materi. Menggunakan arsitektur React-Firebase untuk keamanan dan kecepatan akses.',
       image: '/project1.png',
       tags: ['REACT', 'TAILWIND', 'FIREBASE'],
-      demoUrl: '#',
-      githubUrl: '#'
+      demoUrl: 'https://elearning-yoris.vercel.app',
+      githubUrl: 'https://github.com/YorisSatriaAnanda/e-learning-platform'
     },
     {
-      title: 'Smart Garden IoT',
-      desc: 'Sistem penyiraman tanaman otomatis berbasis IoT dengan monitoring real-time.',
-      fullDesc: 'Proyek akhir IoT yang menghubungkan mikrokontroler ESP32 dengan sensor kelembapan tanah. Data dikirimkan ke cloud real-time dan divisualisasikan melalui dasbor web, memungkinkan pemantauan dan penyiraman tanaman dari jarak jauh dari mana saja.',
+      title: 'GreenHouse IoT Hub',
+      desc: 'Sistem otomasi pertanian cerdas untuk efisiensi penggunaan sumber daya.',
+      fullDesc: 'Menghubungkan sensor kelembaban tanah dan suhu udara ke dashboard web real-time melalui mikrokontroler ESP32. Memungkinkan pemantauan kondisi tanaman secara remote melalui koneksi internet dan pengiriman notifikasi jika tanaman membutuhkan air.',
       image: '/project2.png',
-      tags: ['ARDUINO', 'C++', 'DASHBOARD'],
-      demoUrl: '#',
-      githubUrl: '#'
+      tags: ['ESP32', 'C++', 'FIREBASE'],
+      demoUrl: 'https://iot-dashboard-yoris.web.app',
+      githubUrl: 'https://github.com/YorisSatriaAnanda/smart-garden-iot'
     },
     {
-      title: 'Redesign Website Sekolah',
-      desc: 'Proyek desain ulang antarmuka website sekolah agar lebih modern dan user-friendly.',
-      fullDesc: 'Studi kasus perancangan ulang UI/UX halaman beranda dan portal pendaftaran siswa baru untuk sekolah. Dimulai dari wireframing, user-testing prototype interaktif Figma, hingga translasi ke HTML/CSS semantic.',
+      title: 'Edu-Portal Redesign',
+      desc: 'Optimasi pengalaman pengguna untuk portal pendaftaran siswa baru.',
+      fullDesc: 'Studi kasus desain ulang UI untuk meningkatkan conversion rate pendaftaran siswa. Berfokus pada kemudahan navigasi, hierarki visual yang jelas, dan form pendaftaran yang simpel. Dimulai dari riset pengguna hingga implementasi prototype interaktif di Figma.',
       image: '/project3.png',
-      tags: ['FIGMA', 'UI/UX', 'WEB DESIGN'],
-      demoUrl: '#',
+      tags: ['FIGMA', 'UI/UX', 'PROTOTYPING'],
+      demoUrl: 'https://www.figma.com/file/placeholder',
       githubUrl: '#'
     },
   ];

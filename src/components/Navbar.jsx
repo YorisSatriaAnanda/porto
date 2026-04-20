@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 
 const Navbar = ({ darkMode, setDarkMode }) => {
@@ -25,9 +26,17 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       <div className="container nav-container">
         <div className="nav-glass-wrapper">
           {/* Logo */}
-          <a href="#" className="logo">
+          <motion.a 
+            href="#" 
+            className="logo"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             PORTFOLIO<span>.</span>
-          </a>
+          </motion.a>
 
           {/* Desktop Links (Centered) */}
           <div className="nav-links desktop-only mx-auto">
@@ -78,25 +87,42 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       </div>
 
       {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="mobile-menu-overlay">
-          <div className="glass mobile-menu-content">
-            {navLinks.map((link) => (
-              <a 
-                key={link.name} 
-                href={link.href}
-                className="mobile-nav-link"
-                onClick={() => setIsMobileMenuOpen(false)}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            className="mobile-menu-overlay"
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            <div className="glass mobile-menu-content">
+              {navLinks.map((link, i) => (
+                <motion.a 
+                  key={link.name} 
+                  href={link.href}
+                  className="mobile-nav-link"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  {link.name}
+                </motion.a>
+              ))}
+              <motion.a 
+                href="#contact" 
+                className="btn btn-primary btn-full mt-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
               >
-                {link.name}
-              </a>
-            ))}
-            <a href="#contact" className="btn btn-primary btn-full mt-4">
-              Hire Me
-            </a>
-          </div>
-        </div>
-      )}
+                Hire Me
+              </motion.a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };

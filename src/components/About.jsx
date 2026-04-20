@@ -12,18 +12,24 @@ const About = () => {
 
   const scrollY = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
+  const [isTouchDevice, setIsTouchDevice] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
+
   // 3D Tilt Effect
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springConfig = { damping: 25, stiffness: 300 };
   const smoothMouseX = useSpring(mouseX, springConfig);
   const smoothMouseY = useSpring(mouseY, springConfig);
-  
+
   const rotateX = useTransform(smoothMouseY, [-0.5, 0.5], ["15deg", "-15deg"]);
   const rotateY = useTransform(smoothMouseX, [-0.5, 0.5], ["-15deg", "15deg"]);
 
   const handleMouseMove = (e) => {
-    if (!imageRef.current) return;
+    if (!imageRef.current || isTouchDevice) return;
     const rect = imageRef.current.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
@@ -43,60 +49,60 @@ const About = () => {
       <div className="container">
         <div className="about-grid">
           {/* Left: Image with Parallax & Tilt effect */}
-        <motion.div 
-          style={{ y: scrollY, perspective: 1000 }}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true, margin: "-100px" }}
-        >
           <motion.div
-            ref={imageRef}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{
-              rotateX,
-              rotateY,
-              transformStyle: "preserve-3d"
-            }}
+            style={{ y: scrollY, perspective: 1000 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-100px" }}
           >
-            <img 
-              src="/about.png" 
-              alt="About Me" 
-              className="about-img" 
-              style={{ transform: "translateZ(30px)" }}
-            />
+            <motion.div
+              ref={imageRef}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              style={{
+                rotateX,
+                rotateY,
+                transformStyle: "preserve-3d"
+              }}
+            >
+              <img
+                src="/about.png"
+                alt="About Me"
+                className="about-img"
+                style={{ transform: "translateZ(30px)" }}
+              />
+            </motion.div>
           </motion.div>
-        </motion.div>
 
-        {/* Right: Content */}
-        <motion.div 
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="about-title">Tentang Saya</h2>
-          
-          <div className="about-text">
-            <p style={{ marginBottom: '16px' }}>
-              Cuma siswa kelas 11 yang kebetulan suka banyak hal di berbagai bidang, tapi males belajarnya
-            </p>
-          </div>
+          {/* Right: Content */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="about-title">Tentang Saya</h2>
 
-          <div className="about-meta">
-            <div>
-              <p className="meta-label">Pendidikan</p>
-              <h4 className="meta-value">SMK</h4>
-              <p className="meta-sub">Rekayasa Perangkat Lunak</p>
+            <div className="about-text">
+              <p style={{ marginBottom: '16px' }}>
+                Cuma siswa kelas 11 yang kebetulan suka banyak hal di berbagai bidang, tapi males belajarnya
+              </p>
             </div>
-            <div>
-              <p className="meta-label">Lokasi</p>
-              <h4 className="meta-value">Bogor, Indonesia</h4>
-              <p className="meta-sub">Waktu Indonesia Barat</p>
+
+            <div className="about-meta">
+              <div>
+                <p className="meta-label">Pendidikan</p>
+                <h4 className="meta-value">SMK</h4>
+                <p className="meta-sub">Rekayasa Perangkat Lunak</p>
+              </div>
+              <div>
+                <p className="meta-label">Lokasi</p>
+                <h4 className="meta-value">Bogor, Indonesia</h4>
+                <p className="meta-sub">Waktu Indonesia Barat</p>
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>
