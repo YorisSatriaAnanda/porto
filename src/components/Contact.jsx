@@ -36,7 +36,6 @@ const Contact = () => {
         </p>
 
         <div className="contact-grid">
-          {/* Left: Contact Form */}
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -44,18 +43,29 @@ const Contact = () => {
             viewport={{ once: true }}
             className="contact-form-container"
           >
-            <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+            <form 
+              className="contact-form" 
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const name = formData.get('name');
+                const message = formData.get('message');
+                const subject = encodeURIComponent(`Pesan dari Portofolio: ${name}`);
+                const body = encodeURIComponent(`Halo Yoris,\n\n${message}\n\nDari: ${name}`);
+                window.location.href = `mailto:yorissatriaananda@gmail.com?subject=${subject}&body=${body}`;
+              }}
+            >
               <div className="form-group">
                 <label htmlFor="name">Nama Lengkap</label>
-                <input type="text" id="name" placeholder="John Doe" required />
+                <input type="text" id="name" name="name" placeholder="John Doe" required />
               </div>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
-                <input type="email" id="email" placeholder="john@example.com" required />
+                <input type="email" id="email" name="email" placeholder="john@example.com" required />
               </div>
               <div className="form-group">
                 <label htmlFor="message">Pesan</label>
-                <textarea id="message" rows="5" placeholder="Halo Yoris, saya tertarik untuk..." required></textarea>
+                <textarea id="message" name="message" rows="5" placeholder="Halo Yoris, saya tertarik untuk..." required></textarea>
               </div>
               <button type="submit" className="btn btn-primary btn-full py-4">
                 Kirim Pesan <ChevronRight size={18} />
