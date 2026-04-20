@@ -90,7 +90,6 @@ const Hero = () => {
             dan solusi digital interaktif dengan estetika modern.
           </motion.p>
 
-          {/* Buttons */}
           <div className="hero-btns">
             <Magnetic>
               <motion.a 
@@ -104,12 +103,13 @@ const Hero = () => {
             </Magnetic>
             <Magnetic>
               <motion.a 
-                href="#contact" 
+                href="/cv.pdf" 
+                download
                 className="btn btn-secondary hero-btn"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Hubungi Saya
+                Download CV
               </motion.a>
             </Magnetic>
           </div>

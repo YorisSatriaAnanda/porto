@@ -44,11 +44,7 @@ const Certifications = () => {
           </p>
         </motion.div>
 
-        <div className="cert-grid" style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
-          gap: '24px' 
-        }}>
+        <div className="about-meta">
           {certifications.map((cert, index) => (
             <motion.div
               key={cert.title}
@@ -56,40 +52,37 @@ const Certifications = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="skill-card"
-              style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: '20px',
-                padding: '32px'
-              }}
+              className={`bento-card ${index === 0 ? 'bento-card-lg' : ''}`}
             >
-              <div 
-                className="skill-icon-wrapper" 
-                style={{ 
-                  marginBottom: 0, 
-                  flexShrink: 0,
-                  backgroundColor: index === 0 ? 'rgba(59, 130, 246, 0.1)' : index === 1 ? 'rgba(168, 85, 247, 0.1)' : 'rgba(34, 197, 94, 0.1)'
-                }}
-              >
-                {cert.icon}
-              </div>
-              <div style={{ flex: 1 }}>
-                <h3 className="skill-title" style={{ fontSize: '1.15rem', marginBottom: '8px' }}>
-                  {cert.title}
-                </h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '16px' }}>
-                  {cert.issuer} • {cert.date}
-                </p>
-                <a 
-                  href={cert.credentialUrl} 
-                  className="view-all" 
-                  style={{ fontSize: '12px', gap: '4px' }}
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+                <div 
+                  className="skill-icon-wrapper" 
+                  style={{ 
+                    marginBottom: 0, 
+                    flexShrink: 0,
+                    backgroundColor: index === 0 ? 'rgba(59, 130, 246, 0.1)' : index === 1 ? 'rgba(168, 85, 247, 0.1)' : 'rgba(34, 197, 94, 0.1)'
+                  }}
                 >
-                  Lihat Kredensial <ExternalLink size={14} />
-                </a>
+                  {cert.icon}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <p className="meta-label">{cert.issuer}</p>
+                  <h3 className="meta-value" style={{ fontSize: '1.25rem', marginBottom: '8px' }}>
+                    {cert.title}
+                  </h3>
+                  <p className="meta-sub" style={{ marginBottom: '16px' }}>
+                    Diterbitkan pada {cert.date}
+                  </p>
+                  <a 
+                    href={cert.credentialUrl} 
+                    className="view-all" 
+                    style={{ fontSize: '12px', gap: '4px', display: 'inline-flex', alignItems: 'center' }}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Kredensial <ExternalLink size={14} />
+                  </a>
+                </div>
               </div>
             </motion.div>
           ))}
