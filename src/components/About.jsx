@@ -82,15 +82,35 @@ const About = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="about-title">Tentang Saya</h2>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              viewport={{ once: true }}
+              className="about-title"
+            >
+              Tentang Saya
+            </motion.h2>
 
-            <div className="about-text">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              viewport={{ once: true }}
+              className="about-text"
+            >
               <p style={{ marginBottom: '16px' }}>
                 Cuma siswa kelas 11 yang kebetulan suka banyak hal di berbagai bidang, tapi males belajarnya
               </p>
-            </div>
+            </motion.div>
 
-            <div className="about-meta">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+              viewport={{ once: true }}
+              className="about-meta"
+            >
               <div>
                 <p className="meta-label">Pendidikan</p>
                 <h4 className="meta-value">SMK</h4>
@@ -101,7 +121,7 @@ const About = () => {
                 <h4 className="meta-value">Bogor, Indonesia</h4>
                 <p className="meta-sub">Waktu Indonesia Barat</p>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

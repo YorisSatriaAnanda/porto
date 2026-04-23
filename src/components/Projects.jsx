@@ -41,15 +41,27 @@ const Projects = () => {
     <section id="projects" className="projects-section">
       <div className="container">
         <div className="projects-header">
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <h2 className="projects-title">Proyek Terpilih</h2>
             <p className="projects-subtitle">
               Kumpulan karya yang telah saya selesaikan selama masa sekolah.
             </p>
-          </div>
-          <a href="#" className="view-all">
+          </motion.div>
+          <motion.a 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            href="#" 
+            className="view-all"
+          >
             LIHAT SEMUA <ChevronRight size={18} />
-          </a>
+          </motion.a>
         </div>
 
         <div className="projects-grid">

@@ -171,6 +171,7 @@ html {
   scroll-behavior: smooth;
   overflow-x: hidden;
   width: 100%;
+  position: relative;
 }
 
 ::view-transition-old(root),
@@ -1518,14 +1519,14 @@ section {
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background: var(--bg-color);
+  padding: 16px 20px;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  font-size: 16px; /* Minimal 16px to prevent iOS auto-zoom */
   color: var(--text-primary);
-  font-family: inherit;
-  font-size: 1rem;
   transition: var(--transition);
+  outline: none;
 }
 
 :root.dark .form-group input,
@@ -2057,10 +2058,11 @@ section {
 
 @media (max-width: 768px) {
   .scroll-to-top {
-    bottom: 24px;
-    right: 24px;
-    width: 48px;
-    height: 48px;
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    opacity: 0.9;
   }
 }
 
