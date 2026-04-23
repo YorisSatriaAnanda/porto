@@ -6,6 +6,7 @@ import { SiLinktree } from 'react-icons/si';
 
 const Contact = () => {
   const [copied, setCopied] = useState(false);
+  const [formStatus, setFormStatus] = useState('idle'); // idle, sending, sent
   const email = 'yorissatriaananda@gmail.com';
 
   const handleCopy = () => {
@@ -16,10 +17,49 @@ const Contact = () => {
 
   const socials = [
     { icon: <FaGithub size={24} />, href: 'https://github.com/YorisSatriaAnanda' },
-    { icon: <FaLinkedin size={24} />, href: '#' },
+    { icon: <FaLinkedin size={24} />, href: 'https://linkedin.com/in/yorissatriaananda' },
     { icon: <FaInstagram size={24} />, href: 'https://www.instagram.com/fhuzin_?igsh=MWU0c3lhb2Vndjkybg==' },
     { icon: <SiLinktree size={24} />, href: 'https://linktr.ee/yorissatriaananda' },
   ];
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus('sending');
+    
+    const formData = new FormData(e.target);
+    const name = formData.get('name');
+    const senderEmail = formData.get('email');
+    const message = formData.get('message');
+    
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/yorissatriaananda@gmail.com", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `[Portofolio] Pesan dari ${name}`,
+          Nama: name,
+          Email: senderEmail,
+          Pesan: message
+        })
+      });
+
+      if (response.ok) {
+        setFormStatus('sent');
+        e.target.reset();
+        setTimeout(() => setFormStatus('idle'), 5000);
+      } else {
+        setFormStatus('idle');
+        alert("Maaf, terjadi kesalahan saat mengirim pesan.");
+      }
+    } catch (error) {
+      console.error(error);
+      setFormStatus('idle');
+      alert("Maaf, gagal mengirim pesan. Periksa koneksi internet Anda.");
+    }
+  };
 
   return (
     <section id="contact" className="contact-section">
@@ -45,15 +85,7 @@ const Contact = () => {
           >
             <form 
               className="contact-form" 
-              onSubmit={(e) => {
-                e.preventDefault();
-                const formData = new FormData(e.target);
-                const name = formData.get('name');
-                const message = formData.get('message');
-                const subject = encodeURIComponent(`Pesan dari Portofolio: ${name}`);
-                const body = encodeURIComponent(`Halo Yoris,\n\n${message}\n\nDari: ${name}`);
-                window.location.href = `mailto:yorissatriaananda@gmail.com?subject=${subject}&body=${body}`;
-              }}
+              onSubmit={handleSubmit}
             >
               <div className="form-group">
                 <label htmlFor="name">Nama Lengkap</label>
@@ -67,8 +99,14 @@ const Contact = () => {
                 <label htmlFor="message">Pesan</label>
                 <textarea id="message" name="message" rows="5" placeholder="Halo Yoris, saya tertarik untuk..." required></textarea>
               </div>
-              <button type="submit" className="btn btn-primary btn-full py-4">
-                Kirim Pesan <ChevronRight size={18} />
+              <button 
+                type="submit" 
+                className={`btn btn-primary btn-full py-4 ${formStatus !== 'idle' ? 'opacity-70 pointer-events-none' : ''}`}
+                disabled={formStatus !== 'idle'}
+              >
+                {formStatus === 'idle' && <>Kirim Pesan <ChevronRight size={18} /></>}
+                {formStatus === 'sending' && <>Mengirim... <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1 }}><Check size={18} /></motion.div></>}
+                {formStatus === 'sent' && <>Terkirim! <Check size={18} /></>}
               </button>
             </form>
           </motion.div>

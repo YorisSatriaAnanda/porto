@@ -10,9 +10,32 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
+    
+    const handleResize = () => {
+      if (window.innerWidth > 1024 && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [isMobileMenuOpen]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
 
   const navLinks = [
     { name: 'About', href: '#about' },
@@ -23,7 +46,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
   return (
     <nav className={`nav-fixed ${isScrolled ? 'nav-scrolled' : 'nav-default'}`}>
-      <div className="container nav-container">
+      <div className="container nav-container" style={{ padding: '0 16px' }}>
         <div className="nav-glass-wrapper">
           {/* Logo */}
           <motion.a 
@@ -67,7 +90,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           </div>
           
           <div className="mobile-only">
-            <div style={{ display: 'flex', gap: '8px' }}>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
               <button 
                 onClick={() => setDarkMode(!darkMode)}
                 className="glass"
@@ -78,6 +101,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               <button 
                 className="nav-mobile-toggle glass"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                style={{ display: 'flex' }}
               >
                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>

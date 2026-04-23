@@ -10,6 +10,7 @@ import Contact from './components/Contact';
 import CustomCursor from './components/CustomCursor';
 import Preloader from './components/Preloader';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 
@@ -83,6 +84,7 @@ function App() {
       <div className="grain-overlay" />
 
       <CustomCursor />
+      <ScrollToTop />
       
       <AnimatePresence mode="wait">
         {!isLoaded && <Preloader key="preloader" onComplete={() => setIsLoaded(true)} />}

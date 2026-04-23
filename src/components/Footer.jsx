@@ -8,7 +8,7 @@ const Footer = () => {
   
   const socialLinks = [
     { icon: <FaGithub size={20} />, href: 'https://github.com/YorisSatriaAnanda', label: 'GitHub' },
-    { icon: <FaLinkedin size={20} />, href: '#', label: 'LinkedIn' },
+    { icon: <FaLinkedin size={20} />, href: 'https://linkedin.com/in/yorissatriaananda', label: 'LinkedIn' },
     { icon: <FaInstagram size={20} />, href: 'https://www.instagram.com/fhuzin_?igsh=MWU0c3lhb2Vndjkybg==', label: 'Instagram' },
     { icon: <SiLinktree size={20} />, href: 'https://linktr.ee/yorissatriaananda', label: 'Linktree' },
   ];
