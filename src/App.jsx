@@ -58,8 +58,8 @@ function App() {
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
+      smoothTouch: false, // Disable smooth touch to make mobile feel more native and responsive
+      touchMultiplier: 1.5,
       infinite: false,
     });
 

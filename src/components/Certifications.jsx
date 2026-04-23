@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Award, ExternalLink, ShieldCheck, X, Eye, Trophy } from 'lucide-react';
+import { ExternalLink, X, Eye, ShieldCheck, Award, Trophy } from 'lucide-react';
 
 const Certifications = () => {
   const [selectedCert, setSelectedCert] = useState(null);
@@ -12,7 +12,7 @@ const Certifications = () => {
       date: 'Mei 2025',
       id: 'RVZKW31YQZD5',
       image: '/certificates/cert-fe-pemula.png',
-      icon: <ShieldCheck size={24} />,
+      icon: <ShieldCheck size={20} />,
       theme: 'blue'
     },
     {
@@ -21,7 +21,7 @@ const Certifications = () => {
       date: 'Mei 2025',
       id: 'ERZREO4VWXYV',
       image: '/certificates/cert-js-dasar.png',
-      icon: <Award size={24} />,
+      icon: <Award size={20} />,
       theme: 'purple'
     },
     {
@@ -30,7 +30,7 @@ const Certifications = () => {
       date: 'Mei 2025',
       id: '1OP823LO1PQK',
       image: '/certificates/cert-web-dasar.png',
-      icon: <Trophy size={24} />,
+      icon: <Trophy size={20} />,
       theme: 'green'
     },
     {
@@ -39,7 +39,7 @@ const Certifications = () => {
       date: 'Mei 2025',
       id: '07Z674EY2PQR',
       image: '/certificates/cert-pm-dasar.png',
-      icon: <Award size={24} />,
+      icon: <Award size={20} />,
       theme: 'orange'
     },
     {
@@ -48,7 +48,7 @@ const Certifications = () => {
       date: 'April 2026',
       id: 'JMZVO4GGRXN9',
       image: '/certificates/cert-fin-lit.png',
-      icon: <ShieldCheck size={24} />,
+      icon: <ShieldCheck size={20} />,
       theme: 'red'
     },
     {
@@ -57,7 +57,7 @@ const Certifications = () => {
       date: 'Juli 2025',
       id: 'KEXL2EQ7RZG2',
       image: '/certificates/cert-fin-lit-101.png',
-      icon: <ShieldCheck size={24} />,
+      icon: <ShieldCheck size={20} />,
       theme: 'cyan'
     }
   ];
@@ -79,53 +79,43 @@ const Certifications = () => {
             transition={{ delay: 0.1 }}
             className="section-title-modern"
           >
-            Sertifikasi & <span>Keahlian</span>
+            Sertifikasi <span>Keahlian</span>
           </motion.h2>
         </div>
 
-        <div className="cert-bento-grid">
+        <div className="cert-gallery-grid">
           {certifications.map((cert, index) => (
             <motion.div
               key={cert.title}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
               viewport={{ once: true }}
-              className={`cert-bento-card theme-${cert.theme}`}
-              onClick={() => setSelectedCert(cert)}
+              className={`cert-gallery-card theme-${cert.theme}`}
             >
-              <div className="cert-card-bg">
-                <img src={cert.image} alt="" className="cert-bg-img" />
-                <div className="cert-card-overlay" />
+              <div className="cert-img-container" onClick={() => setSelectedCert(cert)}>
+                <img src={cert.image} alt={cert.title} className="cert-direct-img" />
+                <div className="cert-img-overlay">
+                  <div className="cert-expand-icon">
+                    <Eye size={24} />
+                  </div>
+                </div>
               </div>
               
-              <div className="cert-card-content">
-                <div className="cert-top">
-                  <div className="cert-badge">
-                    {cert.icon}
-                  </div>
-                  <span className="cert-date-tag">{cert.date}</span>
+              <div className="cert-info-direct">
+                <div className="cert-info-header">
+                  <div className="cert-badge-mini">{cert.icon}</div>
+                  <span className="cert-date-mini">{cert.date}</span>
                 </div>
-                
-                <div className="cert-main">
-                  <h3 className="cert-name-modern">{cert.title}</h3>
-                  <p className="cert-issuer-modern">{cert.issuer}</p>
-                </div>
-                
-                <div className="cert-bottom">
-                  <div className="cert-id">ID: {cert.id}</div>
-                  <div className="cert-view-btn">
-                    <Eye size={16} />
-                    <span>Detail</span>
-                  </div>
-                </div>
+                <h3 className="cert-title-direct">{cert.title}</h3>
+                <p className="cert-id-direct">ID: {cert.id}</p>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Modal - Zoomed View */}
       <AnimatePresence>
         {selectedCert && (
           <motion.div
@@ -136,9 +126,9 @@ const Certifications = () => {
             onClick={() => setSelectedCert(null)}
           >
             <motion.div
-              initial={{ y: 100, opacity: 0, scale: 0.9 }}
+              initial={{ y: 50, opacity: 0, scale: 0.9 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 100, opacity: 0, scale: 0.9 }}
+              exit={{ y: 50, opacity: 0, scale: 0.9 }}
               className="cert-modal-window"
               onClick={(e) => e.stopPropagation()}
             >
@@ -161,7 +151,7 @@ const Certifications = () => {
                   rel="noopener noreferrer"
                   className="btn-cert-primary"
                 >
-                  <ExternalLink size={18} /> Verifikasi Sertifikat
+                  <ExternalLink size={18} /> Verifikasi
                 </a>
               </div>
             </motion.div>
