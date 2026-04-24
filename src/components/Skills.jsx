@@ -41,48 +41,72 @@ const Skills = () => {
     }
   ];
 
-  // Optimization: Use 4 copies to ensure enough width for seamless wrapping
-  const extendedSkills = [...skills, ...skills, ...skills, ...skills];
+  // Gunakan 8 set kartu untuk memastikan tidak akan pernah ada ruang kosong bahkan di layar ultrawide
+  const extendedSkills = [...skills, ...skills, ...skills, ...skills, ...skills, ...skills, ...skills, ...skills];
 
   const x = useMotionValue(0);
   const containerRef = useRef(null);
   const [contentWidth, setContentWidth] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     const updateWidth = () => {
       if (containerRef.current) {
-        // We have 4 identical sets. The width of one set is scrollWidth / 4.
-        setContentWidth(containerRef.current.scrollWidth / 4);
+        // PURE CSS MATH: bypasses DOM measurement entirely, ensuring no race conditions on mobile
+        const getCardWidth = () => {
+          if (typeof window !== 'undefined') {
+            const vw = window.innerWidth;
+            const width85vw = vw * 0.85;
+            // .skill-card { width: clamp(280px, 85vw, 320px); }
+            return Math.max(280, Math.min(width85vw, 320));
+          }
+          return 320;
+        };
+        
+        const cardWidth = getCardWidth();
+        // A single set has skills.length cards. Gap is 24px.
+        const singleSetWidth = (cardWidth + 24) * skills.length;
+        setContentWidth(singleSetWidth);
+        
+        // Start in the second set so users can swipe right immediately without seeing empty space
+        if (x.get() === 0) {
+          x.set(-singleSetWidth);
+        }
       }
     };
-    
+
     updateWidth();
-    // Delay slightly to ensure fonts/icons are fully rendered
-    setTimeout(updateWidth, 100); 
-    
     window.addEventListener('resize', updateWidth);
     return () => window.removeEventListener('resize', updateWidth);
-  }, []);
+  }, [skills.length, x]);
 
   useAnimationFrame((time, delta) => {
     if (!contentWidth) return;
 
     let currentX = x.get();
 
-    // Auto-scroll to the left
+    // Jangan lakukan kalkulasi wrap saat sedang di-drag
+    if (isDragging) return;
+
+    // Normal Auto-scroll to the left
     if (!isHovered) {
-      currentX -= 0.05 * delta;
+      currentX -= 0.08 * delta;
     }
 
-    // Seamless modulo wrap between [-contentWidth, 0]
-    if (currentX <= -contentWidth) {
-      currentX = currentX % contentWidth;
-    } else if (currentX > 0) {
-      currentX = (currentX % contentWidth) - contentWidth;
+    // Keep the position seamlessly operating in the safe middle zone: [-contentWidth * 4, -contentWidth * 2]
+    // Menggunakan while loop memastikan bahwa seberapa jauh pun user menggeser (swipe keras),
+    // posisinya akan selalu dikoreksi kembali ke zona aman dalam satu frame tanpa terlihat patah.
+    while (currentX <= -contentWidth * 4) {
+      currentX += contentWidth;
+    }
+    while (currentX > -contentWidth * 2) {
+      currentX -= contentWidth;
     }
 
-    x.set(currentX);
+    if (currentX !== x.get()) {
+      x.set(currentX);
+    }
   });
 
   return (
@@ -121,28 +145,35 @@ const Skills = () => {
         <div style={{ overflow: 'hidden', width: '100%' }}>
           <motion.div
             ref={containerRef}
-            style={{ 
-              x, 
-              display: 'flex', 
-              gap: '24px', 
+            style={{
+              x,
+              display: 'flex',
+              gap: '24px',
               paddingRight: '24px', // FIX: accounts for the trailing gap to make math perfect
-              width: 'max-content', 
+              width: 'max-content',
               cursor: 'grab',
               touchAction: 'pan-y' // FIX: prevents blocking page scroll on mobile
             }}
             drag="x"
             dragElastic={0}
-            dragMomentum={true}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            onDragStart={() => setIsHovered(true)}
-            onDragEnd={() => setIsHovered(false)}
+            dragMomentum={false}
+            onPointerEnter={(e) => {
+              if (e.pointerType === 'mouse') setIsHovered(true);
+            }}
+            onPointerLeave={(e) => {
+              if (e.pointerType === 'mouse') setIsHovered(false);
+            }}
+            onDragStart={() => setIsDragging(true)}
+            onDragEnd={() => setIsDragging(false)}
             whileTap={{ cursor: 'grabbing' }}
+            // Add native touch listeners to ensure scrolling isn't blocked 
+            // and hover state doesn't get stuck on mobile Safari/Chrome
+            onTouchStart={() => setIsHovered(false)}
           >
             {extendedSkills.map((skill, i) => (
               <div
                 key={`${i}-${skill.title}`}
-                className={`skill-card ${i >= skills.length ? 'marquee-item-duplicate' : ''}`}
+                className="skill-card"
               >
                 <div
                   className="skill-icon-wrapper"
