@@ -63,7 +63,7 @@ const Footer = () => {
 
         <div className="footer-bottom">
           <p>© {currentYear} YORIS SATRIA ANANDA</p>
-          <p>Dibuat dengan React.js & Tailwind.css</p>
+          <p>Dibuat dengan React.js & Vanilla CSS</p>
         </div>
       </div>
     </footer>

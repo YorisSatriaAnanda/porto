@@ -16,7 +16,18 @@ import 'lenis/dist/lenis.css';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(() => {
+    // Check if user has already seen the preloader in this session
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem('yoris_porto_loaded') === 'true';
+    }
+    return false;
+  });
+
+  const handleLoadComplete = () => {
+    setIsLoaded(true);
+    sessionStorage.setItem('yoris_porto_loaded', 'true');
+  };
 
   const isFirstMount = useRef(true);
 
@@ -87,7 +98,7 @@ function App() {
       <ScrollToTop />
       
       <AnimatePresence mode="wait">
-        {!isLoaded && <Preloader key="preloader" onComplete={() => setIsLoaded(true)} />}
+        {!isLoaded && <Preloader key="preloader" onComplete={handleLoadComplete} />}
       </AnimatePresence>
 
       <AnimatePresence>

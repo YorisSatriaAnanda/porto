@@ -95,6 +95,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 onClick={() => setDarkMode(!darkMode)}
                 className="glass"
                 style={{ padding: '8px', borderRadius: '50%' }}
+                aria-label="Toggle Dark Mode"
               >
                 {darkMode ? <Sun size={20} /> : <Moon size={20} />}
               </button>
@@ -137,6 +138,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               <motion.a 
                 href="#contact" 
                 className="btn btn-primary btn-full mt-4"
+                onClick={() => setIsMobileMenuOpen(false)}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
