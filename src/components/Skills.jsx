@@ -100,71 +100,78 @@ const Skills = () => {
           <p className="contact-subtitle">
             Teknologi dan kerangka kerja yang menjadi senjata utama saya.
           </p>
-
-          <div
-            className="marquee-wrapper"
-            style={{
-              border: 'none',
-              background: 'transparent',
-              marginTop: '64px',
-              padding: '0',
-            }}
-          >
-            {/* Framer Motion Infinite Drag & Scroll Track */}
-            <div style={{ overflow: 'hidden', width: '100%' }}>
-              <motion.div
-                ref={containerRef}
-                style={{ 
-                  x, 
-                  display: 'flex', 
-                  gap: '24px', 
-                  width: 'max-content', 
-                  cursor: 'grab' 
-                }}
-                drag="x"
-                dragElastic={0}
-                dragMomentum={true}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                onDragStart={() => setIsHovered(true)}
-                onDragEnd={() => setIsHovered(false)}
-                whileTap={{ cursor: 'grabbing' }}
-              >
-                {extendedSkills.map((skill, i) => (
-                  <div
-                    key={`${i}-${skill.title}`}
-                    className={`skill-card ${i >= skills.length ? 'marquee-item-duplicate' : ''}`}
-                  >
-                    <div
-                      className="skill-icon-wrapper"
-                      style={{ backgroundColor: skill.color }}
-                    >
-                      {skill.icon}
-                    </div>
-                    <h3 className="skill-title">{skill.title}</h3>
-                    <p className="skill-desc">
-                      {skill.desc}
-                    </p>
-                    <div className="skill-techs">
-                      {skill.techs.map(tech => (
-                        <span
-                          key={tech}
-                          className="tech-badge"
-                          style={{
-                            background: skill.color,
-                          }}
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </motion.div>
-            </div>
-          </div>
         </motion.div>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        viewport={{ once: true }}
+        className="marquee-wrapper"
+        style={{
+          border: 'none',
+          background: 'transparent',
+          marginTop: '64px',
+          padding: '0',
+          width: '100%',
+        }}
+      >
+        {/* Framer Motion Infinite Drag & Scroll Track */}
+        <div style={{ overflow: 'hidden', width: '100%' }}>
+          <motion.div
+            ref={containerRef}
+            style={{ 
+              x, 
+              display: 'flex', 
+              gap: '24px', 
+              paddingRight: '24px', // FIX: accounts for the trailing gap to make math perfect
+              width: 'max-content', 
+              cursor: 'grab',
+              touchAction: 'pan-y' // FIX: prevents blocking page scroll on mobile
+            }}
+            drag="x"
+            dragElastic={0}
+            dragMomentum={true}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            onDragStart={() => setIsHovered(true)}
+            onDragEnd={() => setIsHovered(false)}
+            whileTap={{ cursor: 'grabbing' }}
+          >
+            {extendedSkills.map((skill, i) => (
+              <div
+                key={`${i}-${skill.title}`}
+                className={`skill-card ${i >= skills.length ? 'marquee-item-duplicate' : ''}`}
+              >
+                <div
+                  className="skill-icon-wrapper"
+                  style={{ backgroundColor: skill.color }}
+                >
+                  {skill.icon}
+                </div>
+                <h3 className="skill-title">{skill.title}</h3>
+                <p className="skill-desc">
+                  {skill.desc}
+                </p>
+                <div className="skill-techs">
+                  {skill.techs.map(tech => (
+                    <span
+                      key={tech}
+                      className="tech-badge"
+                      style={{
+                        background: skill.color,
+                      }}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </motion.div>
 
     </section>
   );
