@@ -8,12 +8,12 @@ const Projects = () => {
 
   const projects = [
     {
-      title: 'E-Learning Excellence',
-      desc: 'Platform edukasi modern dengan fitur kuis interaktif dan manajemen tugas.',
-      fullDesc: 'Dikembangkan untuk memfasilitasi pembelajaran digital yang efektif. Fitur utama meliputi dashboard siswa, pengumpulan tugas yang otomatis, dan integrasi video materi. Menggunakan arsitektur React-Firebase untuk keamanan dan kecepatan akses.',
+      title: 'Noir Bookshelf',
+      desc: 'Aplikasi manajemen buku pribadi minimalis berbasis Web Storage dengan desain responsif bertema Noir yang elegan',
+      fullDesc: 'Menerapkan fitur CRUD (Create, Read, Update, Delete) yang memungkinkan pengguna menambah, menghapus, serta memindahkan buku antar rak "Selesai" dan "Belum Selesai".',
       image: '/project1.png',
-      tags: ['REACT', 'TAILWIND', 'FIREBASE'],
-      demoUrl: 'https://elearning-yoris.vercel.app',
+      tags: ['HTML', 'CSS', 'JAVASCRIPT'],
+      demoUrl: 'https://yorissatriaananda.github.io/BookShelf/',
       githubUrl: 'https://github.com/YorisSatriaAnanda/e-learning-platform'
     },
     {
