@@ -1891,11 +1891,6 @@ section {
     gap: 32px;
   }
 
-  .skill-card {
-    width: 100%;
-    max-width: 400px;
-  }
-
   .marquee-item-duplicate {
     display: none;
   }
@@ -1969,9 +1964,7 @@ section {
 }
 
 @media (max-width: 380px) {
-  .skill-card {
-    width: 270px;
-  }
+  /* Removed skill-card override */
 }
 
 /* Preloader Premium Styles */

@@ -99,8 +99,8 @@ const About = () => {
               viewport={{ once: true }}
               className="about-text"
             >
-              <p style={{ marginBottom: '16px' }}>
-                Cuma siswa kelas 11 yang kebetulan suka banyak hal di berbagai bidang, tapi males belajarnya
+              <p style={{ marginBottom: '16px', lineHeight: '1.8' }}>
+                Siswa SMK RPL yang punya rasa ingin tahu tinggi. Saat ini sedang aktif mengeksplorasi berbagai teknologi web modern dan selalu antusias dalam membangun produk digital yang interaktif dan bermanfaat.
               </p>
             </motion.div>
 
