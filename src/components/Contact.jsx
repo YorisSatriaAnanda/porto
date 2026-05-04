@@ -111,26 +111,26 @@ const Contact = () => {
             </form>
           </motion.div>
 
-          {/* Right: Contact Info */}
+          {/* Right: Contact Info (Bento Grid) */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
-            className="contact-info-container"
+            className="contact-info-grid"
           >
+            {/* Email Card - Large */}
             <div 
               onClick={handleCopy}
-              className="email-card"
-              style={{ width: '100%', marginBottom: '24px' }}
+              className="bento-card bento-card-lg email-card"
             >
               <div className="email-info">
                 <div className="email-icon-box">
                   <Mail size={28} />
                 </div>
                 <div className="text-left">
-                  <p className="email-label">EMAIL</p>
-                  <h3 className="email-address" style={{ fontSize: '1rem' }}>{email}</h3>
+                  <p className="meta-label">EMAIL</p>
+                  <h3 className="email-address">{email}</h3>
                 </div>
               </div>
               <div className="text-muted">
@@ -151,25 +151,34 @@ const Contact = () => {
               </div>
             </div>
 
-            <p className="info-text">
-              Atau temukan saya di platform lain:
-            </p>
-
-            <div className="social-grid-minimal">
-              {socials.map((social, index) => (
-                <motion.a
-                  key={index}
-                  href={social.href}
-                  whileHover={{ y: -5 }}
-                  className="social-link-minimal"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {social.icon}
-                </motion.a>
-              ))}
+            {/* Location Card */}
+            <div className="bento-card location-card">
+              <div className="location-header">
+                <p className="meta-label">LOKASI</p>
+                <div className="location-dot"></div>
+              </div>
+              <h3 className="location-city">Bogor, Indonesia</h3>
+              <p className="location-tz">WIB (GMT+7)</p>
             </div>
 
+            {/* Socials Card */}
+            <div className="bento-card socials-card">
+              <p className="meta-label" style={{ marginBottom: '16px' }}>SOSIAL MEDIA</p>
+              <div className="social-grid-minimal">
+                {socials.map((social, index) => (
+                  <motion.a
+                    key={index}
+                    href={social.href}
+                    whileHover={{ y: -5, scale: 1.1 }}
+                    className="social-link-minimal"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {social.icon}
+                  </motion.a>
+                ))}
+              </div>
+            </div>
           </motion.div>
         </div>
       </motion.div>

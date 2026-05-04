@@ -60,6 +60,7 @@ const About = () => {
               ref={imageRef}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
+              className="about-img-wrapper"
               style={{
                 rotateX,
                 rotateY,
@@ -72,6 +73,16 @@ const About = () => {
                 className="about-img"
                 style={{ transform: "translateZ(30px)" }}
               />
+              <motion.div 
+                className="status-badge"
+                initial={{ scale: 0, rotate: -15 }}
+                whileInView={{ scale: 1, rotate: -5 }}
+                transition={{ delay: 0.5, type: 'spring' }}
+                style={{ transform: "translateZ(60px)" }}
+              >
+                <span className="pulse-dot"></span>
+                OPEN TO WORK
+              </motion.div>
             </motion.div>
           </motion.div>
 

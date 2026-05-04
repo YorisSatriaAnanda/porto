@@ -82,8 +82,9 @@ const Projects = () => {
                   className="project-img"
                 />
                 <div className="project-overlay">
-                  <div className="project-icon">
-                    <ArrowUpRight size={24} />
+                  <div className="project-view-btn">
+                    <span>Lihat Detail</span>
+                    <ArrowUpRight size={18} />
                   </div>
                 </div>
               </div>

@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { SiLinktree } from 'react-icons/si';
 
+import { SiReact, SiFramer, SiTailwindcss } from 'react-icons/si';
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
@@ -25,6 +27,14 @@ const Footer = () => {
             <p className="footer-bio">
               Siswa SMK kelas 11 yang berfokus pada pengembangan web kreatif dan solusi digital interaktif.
             </p>
+            <div className="built-with">
+              <span className="built-with-text">Built with</span>
+              <div className="built-with-icons">
+                <SiReact size={14} />
+                <SiFramer size={14} />
+                <SiTailwindcss size={14} />
+              </div>
+            </div>
           </div>
 
           {/* Links Column */}
@@ -63,7 +73,7 @@ const Footer = () => {
 
         <div className="footer-bottom">
           <p>© {currentYear} YORIS SATRIA ANANDA</p>
-          <p>Dibuat dengan React.js & Vanilla CSS</p>
+          <p>Designed for Excellence</p>
         </div>
       </div>
     </footer>
