@@ -26,26 +26,13 @@ const Contact = () => {
     e.preventDefault();
     setFormStatus('sending');
     
-    const formData = new FormData(e.target);
-    const name = formData.get('name');
-    const senderEmail = formData.get('email');
-    const message = formData.get('message');
-    
     try {
+      const formData = new FormData(e.target);
       const response = await fetch("https://formsubmit.co/ajax/yorissatriaananda@gmail.com", {
         method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: `[Portofolio] Pesan dari ${name}`,
-          Nama: name,
-          Email: senderEmail,
-          Pesan: message
-        })
+        body: formData
       });
-
+      
       if (response.ok) {
         setFormStatus('sent');
         e.target.reset();
@@ -105,10 +92,32 @@ const Contact = () => {
                 disabled={formStatus !== 'idle'}
               >
                 {formStatus === 'idle' && <>Kirim Pesan <ChevronRight size={18} /></>}
-                {formStatus === 'sending' && <>Mengirim... <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1 }}><Check size={18} /></motion.div></>}
+                {formStatus === 'sending' && <>Mengirim...</>}
                 {formStatus === 'sent' && <>Terkirim! <Check size={18} /></>}
               </button>
             </form>
+
+            {/* Success Notification Toast */}
+            <AnimatePresence>
+              {formStatus === 'sent' && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className="success-toast"
+                >
+                  <div className="success-toast-content">
+                    <div className="success-icon-box">
+                      <Check size={20} />
+                    </div>
+                    <div>
+                      <p className="success-toast-title">Pesan Terkirim!</p>
+                      <p className="success-toast-sub">Terima kasih, saya akan segera menghubungi Anda.</p>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
 
           {/* Right: Contact Info (Bento Grid) */}

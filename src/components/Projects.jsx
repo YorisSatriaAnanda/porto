@@ -6,6 +6,18 @@ import { FaGithub } from 'react-icons/fa';
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
 
+  // Lock body scroll when modal is open
+  React.useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedProject]);
+
   const projects = [
     {
       title: 'Noir Bookshelf',
