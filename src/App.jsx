@@ -62,6 +62,10 @@ function App() {
 
   // Initialize Lenis for Smooth Scrolling
   useEffect(() => {
+    // Optimization: Skip Lenis on touch devices or small screens for native feel and better performance
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouch) return;
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -69,7 +73,7 @@ function App() {
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
-      smoothTouch: false, // Disable smooth touch to make mobile feel more native and responsive
+      smoothTouch: false,
       touchMultiplier: 1.5,
       infinite: false,
     });
