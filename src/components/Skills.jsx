@@ -204,6 +204,24 @@ const Skills = () => {
         </div>
       </motion.div>
 
+      {/* Scroll Hint for Mobile */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 0.5 }}
+        className="mobile-only text-center"
+        style={{ marginTop: '32px' }}
+      >
+        <span style={{ 
+          fontSize: '10px', 
+          fontWeight: 700, 
+          textTransform: 'uppercase', 
+          letterSpacing: '0.2em',
+          color: 'var(--text-secondary)'
+        }}>
+          Swipe to explore
+        </span>
+      </motion.div>
+
     </section>
   );
 };
